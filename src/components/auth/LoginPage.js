@@ -81,11 +81,6 @@ const LoginPage = () => {
             </Typography>
           </Box>
 
-          {/* Hint for demo */}
-          <Alert severity="info" sx={{ mb: 2, fontSize: 12 }}>
-            Demo credentials: <strong>admin</strong> / <strong>admin123</strong>
-          </Alert>
-
           {/* API Error */}
           {loginError && (
             <Alert severity="error" sx={{ mb: 2 }} id="login-error-alert">
