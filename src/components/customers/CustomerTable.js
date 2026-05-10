@@ -31,7 +31,7 @@ const CustomerTable = ({ customers, transactionData, onViewDetail }) => {
 
   // Find transaction data for a specific customer
   const getCustomerTransactions = (customerId) => {
-    const data = transactionData.find(c => c.customerId === customerId);
+    const data = transactionData?.find(c => c.customerId === customerId);
     return data ? data.transactions : [];
   };
 
@@ -51,20 +51,20 @@ const CustomerTable = ({ customers, transactionData, onViewDetail }) => {
     setPage(0);
   };
 
-  const filteredCustomers = customers.filter(c => 
-    c.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    c.customerId.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    c.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredCustomers = customers?.filter(c => 
+    c.customerName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    c.customerId?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    c.email?.toLowerCase().includes(searchTerm.toLowerCase())
+  ) || [];
 
   const sortedCustomers = [...filteredCustomers].sort((a, b) => {
-    const aValue = a[orderBy];
-    const bValue = b[orderBy];
+    const aValue = a?.[orderBy];
+    const bValue = b?.[orderBy];
     
     // Handle numeric sorting if needed
     if (orderBy === 'totalPoints') {
-      const aPoints = calculateTotalPoints(getCustomerTransactions(a.customerId));
-      const bPoints = calculateTotalPoints(getCustomerTransactions(b.customerId));
+      const aPoints = calculateTotalPoints(getCustomerTransactions(a?.customerId));
+      const bPoints = calculateTotalPoints(getCustomerTransactions(b?.customerId));
       return order === 'asc' ? aPoints - bPoints : bPoints - aPoints;
     }
 

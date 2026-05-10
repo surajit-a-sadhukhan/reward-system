@@ -13,6 +13,7 @@ import { MONTH_NAMES } from '../constants/appConstants';
 export const formatDate = (dateString) => {
   if (!dateString) return '';
   const date = new Date(dateString);
+  if (isNaN(date.getTime())) return 'Invalid Date';
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
@@ -27,6 +28,7 @@ export const formatDate = (dateString) => {
  */
 export const getYearMonth = (dateString) => {
   const date = new Date(dateString);
+  if (isNaN(date.getTime())) return '';
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   return `${year}-${month}`;
@@ -39,7 +41,9 @@ export const getYearMonth = (dateString) => {
  */
 export const getMonthLabel = (yearMonth) => {
   if (!yearMonth) return '';
-  const [year, monthIndex] = yearMonth.split('-');
+  const parts = yearMonth?.split('-') || [];
+  if (parts.length < 2) return yearMonth;
+  const [year, monthIndex] = parts;
   return `${MONTH_NAMES[parseInt(monthIndex, 10) - 1]} ${year}`;
 };
 

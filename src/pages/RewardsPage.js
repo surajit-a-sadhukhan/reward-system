@@ -28,18 +28,18 @@ const RewardsPage = () => {
 
   // Aggregate monthly data for all customers
   const globalMonthlyStats = useMemo(() => {
-    if (!transactionData.length) return {};
+    if (!transactionData?.length) return {};
 
     const stats = {};
-    transactionData.forEach(customerData => {
-      const monthlyData = groupPointsByMonth(customerData.transactions);
+    transactionData?.forEach(customerData => {
+      const monthlyData = groupPointsByMonth(customerData?.transactions);
       Object.keys(monthlyData).forEach(month => {
         if (!stats[month]) {
           stats[month] = { points: 0, transactions: 0, customers: new Set() };
         }
-        stats[month].points += monthlyData[month].points;
-        stats[month].transactions += monthlyData[month].transactions.length;
-        stats[month].customers.add(customerData.customerId);
+        stats[month].points += monthlyData[month]?.points || 0;
+        stats[month].transactions += monthlyData[month]?.transactions?.length || 0;
+        stats[month].customers.add(customerData?.customerId);
       });
     });
 
@@ -81,11 +81,11 @@ const RewardsPage = () => {
                     return (
                       <TableRow key={month} hover>
                         <TableCell sx={{ fontWeight: 600 }}>{getMonthLabel(month)}</TableCell>
-                        <TableCell align="center">{data.transactions}</TableCell>
-                        <TableCell align="center">{data.customers.size}</TableCell>
+                        <TableCell align="center">{data?.transactions}</TableCell>
+                        <TableCell align="center">{data?.customers?.size}</TableCell>
                         <TableCell align="right">
                           <Chip 
-                            label={`${data.points.toLocaleString()} pts`} 
+                            label={`${data?.points?.toLocaleString()} pts`} 
                             color="secondary" 
                             variant="outlined" 
                           />

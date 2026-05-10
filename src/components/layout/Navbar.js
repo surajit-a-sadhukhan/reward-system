@@ -30,10 +30,10 @@ const Navbar = ({ user, onLogout }) => {
         {user && (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
             <Avatar sx={{ width: 32, height: 32, bgcolor: '#ffd54f', color: '#1565c0', fontSize: 14 }}>
-              {user.name?.charAt(0).toUpperCase()}
+              {user?.name?.charAt(0).toUpperCase()}
             </Avatar>
             <Typography variant="body2" sx={{ color: '#e3f2fd' }}>
-              {user.name}
+              {user?.name}
             </Typography>
             <Tooltip title="Logout">
               <Button

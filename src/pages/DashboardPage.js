@@ -52,12 +52,16 @@ const DashboardPage = () => {
     let totalPoints = 0;
     let totalTxns   = 0;
 
-    const customerPoints = transactionData.map((cust) => {
-      const pts = calculateTotalPoints(cust.transactions);
+    const customerPoints = transactionData?.map((cust) => {
+      const pts = calculateTotalPoints(cust?.transactions);
       totalPoints += pts;
-      totalTxns   += cust.transactions.length;
-      return { name: cust.customerName.split(' ')[0], points: pts, customerId: cust.customerId };
-    });
+      totalTxns   += cust?.transactions?.length || 0;
+      return { 
+        name: cust?.customerName?.split(' ')[0] || 'Unknown', 
+        points: pts, 
+        customerId: cust?.customerId 
+      };
+    }) || [];
 
     // Top 8 by points for bar chart
     const top8 = [...customerPoints]
@@ -92,7 +96,7 @@ const DashboardPage = () => {
         <Grid item xs={12} sm={6} md={3}>
           <StatCard
             title="Total Customers"
-            value={customers.length}
+            value={customers?.length}
             icon={<PeopleIcon fontSize="large" />}
             color="#1565c0"
           />
@@ -117,8 +121,8 @@ const DashboardPage = () => {
           <StatCard
             title="Avg Points / Customer"
             value={
-              customers.length
-                ? Math.round((stats?.totalPoints ?? 0) / customers.length).toLocaleString()
+              customers?.length
+                ? Math.round((stats?.totalPoints ?? 0) / customers?.length).toLocaleString()
                 : 0
             }
             icon={<TrendingUpIcon fontSize="large" />}
@@ -161,7 +165,7 @@ const DashboardPage = () => {
           </Typography>
           <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
             {['Platinum', 'Gold', 'Silver', 'Bronze'].map((tier) => {
-              const count = customers.filter((c) => c.tier === tier).length;
+              const count = customers?.filter((c) => c?.tier === tier)?.length || 0;
               const colorMap = { Platinum: '#1976d2', Gold: '#ffc107', Silver: '#9e9e9e', Bronze: '#cd7f32' };
               return (
                 <Chip

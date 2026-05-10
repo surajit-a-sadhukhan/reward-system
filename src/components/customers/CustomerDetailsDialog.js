@@ -55,7 +55,7 @@ const CustomerDetailsDialog = ({ open, customer, transactions, onClose }) => {
       maxWidth="md" 
       fullWidth
       scroll="paper"
-      id={`dialog-customer-${customer.customerId}`}
+      id={`dialog-customer-${customer?.customerId}`}
     >
       <DialogTitle sx={{ m: 0, p: 2, bgcolor: '#1565c0', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Typography variant="h6" fontWeight={600}>
@@ -73,16 +73,16 @@ const CustomerDetailsDialog = ({ open, customer, transactions, onClose }) => {
             <Card variant="outlined" sx={{ height: '100%' }}>
               <CardContent>
                 <Typography variant="overline" color="textSecondary">Customer Profile</Typography>
-                <Typography variant="h5" fontWeight={700} gutterBottom>{customer.customerName}</Typography>
-                <Typography variant="body2" color="textSecondary">ID: {customer.customerId}</Typography>
-                <Typography variant="body2" color="textSecondary">Email: {customer.email}</Typography>
+                <Typography variant="h5" fontWeight={700} gutterBottom>{customer?.customerName}</Typography>
+                <Typography variant="body2" color="textSecondary">ID: {customer?.customerId}</Typography>
+                <Typography variant="body2" color="textSecondary">Email: {customer?.email}</Typography>
                 <Box mt={2}>
-                  <Chip label={customer.tier} color="primary" variant="outlined" size="small" />
+                  <Chip label={customer?.tier} color="primary" variant="outlined" size="small" />
                 </Box>
                 <Divider sx={{ my: 2 }} />
                 <Typography variant="body2" fontWeight={600}>Total Points (Last {DEFAULT_RECENT_MONTHS} Months)</Typography>
                 <Typography variant="h3" color="primary.main" fontWeight={800}>
-                  {processedData ? processedData.totalPoints : 0}
+                  {processedData ? processedData?.totalPoints : 0}
                 </Typography>
               </CardContent>
             </Card>
@@ -93,13 +93,13 @@ const CustomerDetailsDialog = ({ open, customer, transactions, onClose }) => {
             <Typography variant="subtitle1" fontWeight={700} mb={1}>Reward Points by Month</Typography>
             {processedData ? (
               <Grid container spacing={2}>
-                {processedData.months.map(month => (
+                {processedData?.months?.map(month => (
                   <Grid item xs={12} sm={4} key={month}>
                     <Card sx={{ bgcolor: '#e3f2fd' }}>
                       <CardContent sx={{ textAlign: 'center', py: 1 }}>
                         <Typography variant="caption" color="textSecondary">{getMonthLabel(month)}</Typography>
                         <Typography variant="h5" fontWeight={700}>
-                          {processedData.monthlyGroups[month].points}
+                          {processedData?.monthlyGroups?.[month]?.points}
                         </Typography>
                         <Typography variant="caption">pts</Typography>
                       </CardContent>
@@ -127,13 +127,13 @@ const CustomerDetailsDialog = ({ open, customer, transactions, onClose }) => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {processedData.recentTxns.map((txn) => (
-                      <TableRow key={txn.transactionId} hover>
-                        <TableCell>{formatDate(txn.date)}</TableCell>
-                        <TableCell>{txn.transactionId}</TableCell>
-                        <TableCell align="right">${txn.amount.toFixed(2)}</TableCell>
+                    {processedData?.recentTxns?.map((txn) => (
+                      <TableRow key={txn?.transactionId} hover>
+                        <TableCell>{formatDate(txn?.date)}</TableCell>
+                        <TableCell>{txn?.transactionId}</TableCell>
+                        <TableCell align="right">${txn?.amount?.toFixed(2)}</TableCell>
                         <TableCell align="right">
-                          <Chip label={txn.points} size="small" color="primary" />
+                          <Chip label={txn?.points} size="small" color="primary" />
                         </TableCell>
                       </TableRow>
                     ))}

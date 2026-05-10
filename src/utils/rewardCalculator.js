@@ -49,10 +49,10 @@ export const calculatePointsForAmount = (amount) => {
  * @returns {Array} Transactions with `points` field added
  */
 export const enrichTransactionsWithPoints = (transactions = []) => {
-  return transactions.map((txn) => ({
+  return transactions?.map((txn) => ({
     ...txn,
-    points: calculatePointsForAmount(txn.amount),
-  }));
+    points: calculatePointsForAmount(txn?.amount),
+  })) || [];
 };
 
 /**
@@ -69,7 +69,7 @@ export const groupPointsByMonth = (transactions = []) => {
     if (!acc[yearMonth]) {
       acc[yearMonth] = { points: 0, transactions: [] };
     }
-    acc[yearMonth].points += txn.points;
+    acc[yearMonth].points += (txn?.points || 0);
     acc[yearMonth].transactions.push(txn);
     return acc;
   }, {});
@@ -96,8 +96,8 @@ export const filterRecentMonths = (transactions = [], monthCount = 3) => {
   if (!transactions.length) return [];
 
   // Find the latest date in the dataset
-  const dates = transactions.map((t) => new Date(t.date).getTime());
-  const latestDate = new Date(Math.max(...dates));
+  const dates = transactions?.map((t) => new Date(t?.date).getTime()) || [];
+  const latestDate = dates.length ? new Date(Math.max(...dates)) : new Date();
 
   // Calculate cutoff date
   const cutoff = new Date(latestDate);
@@ -105,5 +105,5 @@ export const filterRecentMonths = (transactions = [], monthCount = 3) => {
   cutoff.setDate(1); // Start of that month
   cutoff.setHours(0, 0, 0, 0);
 
-  return transactions.filter((txn) => new Date(txn.date) >= cutoff);
+  return transactions?.filter((txn) => new Date(txn?.date) >= cutoff) || [];
 };

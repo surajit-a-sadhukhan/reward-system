@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const { token, user } = await loginApi(username, password);
       setAuthState({ isAuthenticated: true, user, token });
-      logger.info('Login successful:', user.name);
+      logger.info('Login successful:', user?.name);
       return true;
     } catch (err) {
       logger.warn('Login failed:', err.message);
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
    * Log the current user out.
    */
   const logout = useCallback(() => {
-    logger.info('User logging out:', authState.user?.name);
+    logger.info('User logging out:', authState?.user?.name);
     setAuthState({ isAuthenticated: false, user: null, token: null });
   }, [authState.user]);
 

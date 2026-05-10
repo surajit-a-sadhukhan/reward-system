@@ -23,14 +23,14 @@ import { CUSTOMER_TIERS } from '../../constants/appConstants';
 
 const CustomerRow = ({ customer, transactions, totalPoints, onViewDetail }) => {
   const [open, setOpen] = useState(false);
-  const tierConfig = CUSTOMER_TIERS[customer.tier] || CUSTOMER_TIERS.Bronze;
+  const tierConfig = CUSTOMER_TIERS[customer?.tier] || CUSTOMER_TIERS.Bronze;
 
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell width="50">
           <IconButton
-            id={`expand-btn-${customer.customerId}`}
+            id={`expand-btn-${customer?.customerId}`}
             size="small"
             onClick={() => setOpen(!open)}
           >
@@ -38,25 +38,25 @@ const CustomerRow = ({ customer, transactions, totalPoints, onViewDetail }) => {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {customer.customerId}
+          {customer?.customerId}
         </TableCell>
-        <TableCell>{customer.customerName}</TableCell>
-        <TableCell>{customer.email}</TableCell>
+        <TableCell>{customer?.customerName}</TableCell>
+        <TableCell>{customer?.email}</TableCell>
         <TableCell>
           <Chip 
-            label={customer.tier} 
+            label={customer?.tier} 
             size="small" 
-            sx={{ bgcolor: tierConfig.color, color: '#fff' }} 
+            sx={{ bgcolor: tierConfig?.color, color: '#fff' }} 
           />
         </TableCell>
         <TableCell align="right" sx={{ fontWeight: 'bold' }}>
-          {totalPoints.toLocaleString()}
+          {totalPoints?.toLocaleString()}
         </TableCell>
         <TableCell align="center">
           <IconButton 
-            id={`view-btn-${customer.customerId}`}
+            id={`view-btn-${customer?.customerId}`}
             color="primary" 
-            onClick={() => onViewDetail(customer.customerId)}
+            onClick={() => onViewDetail(customer?.customerId)}
           >
             <VisibilityIcon />
           </IconButton>
